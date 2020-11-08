@@ -1,8 +1,7 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { ConfigModule } from '@nestjs/config';
+import { ConfigModule, ConfigService } from '@nestjs/config';
 
-import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AdminsModule } from './admins';
 import { OrdersModule } from './orders';
@@ -11,16 +10,29 @@ import { WaitersModule } from './waiters';
 
 @Module({
   imports: [
-    MongooseModule.forRoot(
-      'mongodb+srv://rest-sys:dknuDInmoXBMtZxW@cluster0.8nzi7.mongodb.net/rest-sys-main?retryWrites=true&w=majority',
-    ),
+    MongooseModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+
+      useFactory: async (configService: ConfigService) => {
+        return {
+          uri: `mongodb+srv://${configService.get<string>(
+            'DATABASE_USER',
+          )}:${configService.get<string>(
+            'DATABASE_PASSWORD',
+          )}@${configService.get<string>(
+            'DATABASE_URL',
+          )}?retryWrites=true&w=majority`,
+        };
+      },
+    }),
     ConfigModule.forRoot(),
     AdminsModule,
     DishesModule,
     WaitersModule,
     OrdersModule,
   ],
-  controllers: [AppController],
+  controllers: [],
   providers: [AppService],
 })
 export class AppModule {}

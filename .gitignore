@@ -135,6 +135,7 @@ dist
 
 # CMake
 cmake-build-*/
+mongodb-binaries
 
 # File-based project format
 *.iws

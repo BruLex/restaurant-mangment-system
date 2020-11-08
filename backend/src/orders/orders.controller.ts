@@ -15,7 +15,7 @@ export class OrdersController {
 
   @Get('/:id')
   async findOne(@Param('id') id: string): Promise<any> {
-    return { user: await this.ordersService.findOne(id) };
+    return { order: await this.ordersService.findOne(id) };
   }
 
   @Get()

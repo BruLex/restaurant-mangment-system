@@ -25,11 +25,11 @@ export class AdminsController {
 
   @Get()
   async findAll(): Promise<any> {
-    return { users: await this.adminsService.findAll() };
+    return { admins: await this.adminsService.findAll() };
   }
 
   @Get('/:id')
   async findOne(@Param('id') id: string): Promise<any> {
-    return { user: await this.adminsService.findOne(id) };
+    return { admin: await this.adminsService.findOne(id) };
   }
 }

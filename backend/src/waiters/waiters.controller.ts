@@ -25,11 +25,11 @@ export class WaitersController {
 
   @Get()
   async findAll(): Promise<any> {
-    return { users: await this.waitersService.findAll() };
+    return { waiters: await this.waitersService.findAll() };
   }
 
   @Get('/:id')
   async findOne(@Param('id') id: string): Promise<any> {
-    return { user: await this.waitersService.findOne(id) };
+    return { waiter: await this.waitersService.findOne(id) };
   }
 }

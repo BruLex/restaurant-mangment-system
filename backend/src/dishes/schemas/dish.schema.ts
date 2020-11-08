@@ -13,7 +13,7 @@ export class Dish {
   @Prop({ required: true })
   unit: string;
   @Prop({ required: true })
-  price: string;
+  price: number;
 }
 
 export type DishDocument = Dish & Document;

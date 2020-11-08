@@ -1,10 +1,4 @@
-import {
-  IsNotEmpty,
-  IsString,
-  MaxLength,
-  Min,
-  MinLength,
-} from 'class-validator';
+import { IsNotEmpty, IsString, MaxLength, MinLength } from 'class-validator';
 
 export class CreateWaiterDto {
   @MinLength(3)

@@ -15,7 +15,9 @@ export class AdminsService {
     return createdAdmin.save();
   }
 
-  async update(updateAdminDto: UpdateAdminDto): Promise<AdminDocument> {
+  async update(
+    updateAdminDto: Partial<UpdateAdminDto>,
+  ): Promise<AdminDocument> {
     const createdAdmin: AdminDocument = await this.model.findById(
       updateAdminDto.id,
     );

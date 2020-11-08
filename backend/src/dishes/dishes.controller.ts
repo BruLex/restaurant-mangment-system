@@ -23,11 +23,11 @@ export class DishesController {
 
   @Get()
   async findAll(): Promise<any> {
-    return { users: await this.dishesService.findAll() };
+    return { dishes: await this.dishesService.findAll() };
   }
 
   @Get('/:id')
   async findOne(@Param('id') id: string): Promise<any> {
-    return { user: await this.dishesService.findOne(id) };
+    return { dish: await this.dishesService.findOne(id) };
   }
 }

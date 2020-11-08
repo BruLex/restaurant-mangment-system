@@ -7,15 +7,10 @@ import {
   ValidateNested,
 } from 'class-validator';
 
-export class CreateOrderDishDto {
+export class CreateOrderDishEntityDto {
   @IsString()
   @IsNotEmpty()
-  readonly id: string;
-}
-
-export class CreateOrderDishEntityDto {
-  @ValidateNested()
-  readonly dish: CreateOrderDishDto;
+  readonly dish: string;
   @IsNumber()
   @IsNotEmpty()
   @Min(1)

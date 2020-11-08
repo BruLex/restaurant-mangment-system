@@ -15,7 +15,7 @@ export class DishesService {
     return createdDish.save();
   }
 
-  async update(updateDishDto: UpdateDishDto): Promise<DishDocument> {
+  async update(updateDishDto: Partial<UpdateDishDto>): Promise<DishDocument> {
     const createdDish: DishDocument = await this.model.findById(
       updateDishDto.id,
     );
