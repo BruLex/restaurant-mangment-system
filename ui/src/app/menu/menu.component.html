@@ -1,0 +1,123 @@
+<mat-toolbar class="table-control-panel">
+    <mat-toolbar-row>
+        <button class="action-button" mat-raised-button color="primary" (click)="openDialog('add')">
+            Add new
+        </button>
+    </mat-toolbar-row>
+</mat-toolbar>
+<mat-divider></mat-divider>
+<table [dataSource]="dataSource" mat-table>
+    <mat-text-column name="name" headerText="Dish name"></mat-text-column>
+    <mat-text-column name="price" headerText="Price"></mat-text-column>
+    <mat-text-column name="unit" headerText="Unit"></mat-text-column>
+
+    <ng-container matColumnDef="actions">
+        <th *matHeaderCellDef mat-header-cell></th>
+        <td *matCellDef="let element" mat-cell>
+            <div hflex-layout>
+                <button disableRipple
+                        (click)="makeOrder(element)"
+                        [matTooltip]="'Add to basket'"
+                        class="action-button"
+                        mat-icon-button>
+                    <mat-icon>shopping_basket</mat-icon>
+                </button>
+                <button disableRipple
+                        (click)="openDialog('edit', element)"
+                        [matTooltip]="'Edit'"
+                        class="action-button"
+                        mat-icon-button>
+                    <mat-icon>edit</mat-icon>
+                </button>
+                <button disableRipple
+                        (click)="deleteEntity(element)"
+                        [matTooltip]="'Delete'"
+                        class="action-button"
+                        mat-icon-button>
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </div>
+        </td>
+    </ng-container>
+
+    <tr *matHeaderRowDef="['name', 'price', 'unit', 'actions']" mat-header-row></tr>
+    <tr *matRowDef="let row; columns: ['name', 'price', 'unit', 'actions'];" mat-row></tr>
+</table>
+
+<ng-template #manageEntityDialog>
+    <h1 mat-dialog-title>{{ dialogMode.toUpperCase()[0] + dialogMode.slice(1)}} dish</h1>
+    <form mat-dialog-content [formGroup]="currentModel" flex vflex-layout>
+        <mat-form-field flex>
+            <input
+                    [autocomplete]="'off'" formControlName="name" matInput placeholder="Name"
+                    required>
+        </mat-form-field>
+        <div hflex-layout>
+            <mat-form-field flex>
+                <input
+                        type="number" step="0.01" [autocomplete]="'off'" formControlName="price" matInput placeholder="Price"
+                        required>
+            </mat-form-field>
+            <mat-form-field flex>
+                <input
+                        [autocomplete]="'off'" formControlName="unit" matInput placeholder="Unit"
+                        required>
+            </mat-form-field>
+        </div>
+    </form>
+    <div mat-dialog-actions>
+        <button [mat-dialog-close]="false" mat-button>Close</button>
+        <span flex></span>
+        <button
+                [disabled]="!currentModel.status"
+                [mat-dialog-close]="true"
+                mat-button>
+            {{ 'Save' }}
+        </button>
+    </div>
+</ng-template>
+
+<ng-template #enterCount>
+    <h1 mat-dialog-title>{{ dialogMode.toUpperCase()[0] + dialogMode.slice(1)}} dish</h1>
+    <div mat-dialog-content vflex-layout>
+        <div hflex-layout>
+            <mat-form-field flex>
+                <input disabled
+                       [autocomplete]="'off'" [ngModel]="dishToBuy?.name" matInput placeholder="Dish mane"
+                       required>
+            </mat-form-field>
+            <mat-form-field flex>
+                <input disabled
+                       [autocomplete]="'off'" [ngModel]="dishToBuy?.price" matInput placeholder="Price"
+                       required>
+            </mat-form-field>
+            <mat-form-field flex>
+                <input disabled
+                       [autocomplete]="'off'" [ngModel]="dishToBuy?.unit" matInput placeholder="Unit"
+                       required>
+            </mat-form-field>
+        </div>
+        <div hflex-layout>
+            <mat-form-field flex="4">
+                <input
+                        type="number" step="0" [autocomplete]="'off'" [formControl]="makeOrderModel" matInput placeholder="Count"
+                        required>
+            </mat-form-field>
+            <mat-form-field flex="1">
+                <input disabled
+                        [autocomplete]="'off'" [ngModel]="(dishToBuy?.price || 0) * makeOrderModel.value" matInput placeholder="Total"
+                        required>
+            </mat-form-field>
+        </div>
+    </div>
+    <div mat-dialog-actions>
+        <button [mat-dialog-close]="false" mat-button>Close</button>
+        <span flex></span>
+        <button
+                [disabled]="!currentModel.status"
+                [mat-dialog-close]="true"
+                mat-button>
+            {{ 'Done' }}
+        </button>
+    </div>
+<ng-template>

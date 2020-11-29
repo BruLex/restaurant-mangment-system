@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
 
 import { WaitersService } from './waiters.service';
 import { CreateWaiterDto } from './dto/create-waiter.dto';
@@ -31,5 +39,9 @@ export class WaitersController {
   @Get('/:id')
   async findOne(@Param('id') id: string): Promise<any> {
     return { waiter: await this.waitersService.findOne(id) };
+  }
+  @Delete('/:id')
+  async delete(@Param('id') id: string): Promise<any> {
+    return (await (await this.waitersService.findOne(id)).remove()).$isDeleted;
   }
 }

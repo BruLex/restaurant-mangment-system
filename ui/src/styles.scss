@@ -1,0 +1,106 @@
+/* You can add global styles to this file, and also import other style files */
+@import "./variables.scss";
+@include mat-core();
+@include angular-material-theme($defaultTheme);
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+[flex] {
+    flex: 1;
+    box-sizing: border-box;
+}
+
+@for $i from 1 through 5 {
+    [flex='#{$i}'] {
+        flex: $i;
+        box-sizing: border-box;
+    }
+}
+
+[vflex-layout] {
+    display: flex;
+    flex-direction: column;
+
+    > * {
+        align-items: center;
+        display: flex;
+        flex-direction: row;
+
+        &:not(:last-child) {
+            margin-bottom: 2px;
+        }
+    }
+}
+
+[hflex-layout] {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+
+    > * {
+        &:not(button) {
+            display: flex;
+            flex-direction: column;
+        }
+
+        &:not(:last-child) {
+           margin-right: 8px;
+        }
+    }
+}
+
+[mat-table] {
+    width: 100%;
+}
+
+.table-container {
+    height: 78vh;
+    overflow: hidden;
+}
+
+.table-control-panel {
+    background: mat-color($background, card);
+
+    button {
+        margin: 16px 8px;
+    }
+}
+
+mat-card {
+    min-height: 400px;
+}
+
+[mat-dialog-content] {
+    display: flex !important;
+    overflow: unset !important;
+}
+
+.mat-row {
+    &:hover {
+        .action-button {
+            display: inherit;
+        }
+    }
+
+    .action-button {
+        display: none;
+    }
+
+    .cdk-column-actions {
+        padding: 0;
+        right: 24px;
+        width: #{48 * 2}px;
+    }
+}
+
+.tooltip-custom {
+    white-space: pre-wrap;
+}
+
+.mat-form-field-appearance-legacy {
+    .mat-form-field-infix {
+        width: unset;
+    }
+}

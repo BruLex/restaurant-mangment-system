@@ -1,0 +1,21 @@
+.app-container {
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+h1.brand-logo {
+    margin-left: 8px;
+}
+
+.sidenav-container {
+    height: 100%;
+}
+
+a[mat-list-item] {
+    width: 240px;
+}

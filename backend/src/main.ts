@@ -3,6 +3,7 @@ import { INestApplication, ValidationPipe } from '@nestjs/common';
 import { DocumentBuilder, OpenAPIObject, SwaggerModule } from '@nestjs/swagger';
 import { getFromContainer, MetadataStorage } from 'class-validator';
 import { validationMetadatasToSchemas } from 'class-validator-jsonschema';
+import * as compression from 'compression';
 
 import { AppModule } from './app.module';
 
@@ -29,6 +30,8 @@ async function bootstrap(): Promise<void> {
   SwaggerModule.setup('api', app, document);
 
   app.useGlobalPipes(new ValidationPipe());
+  app.use(compression());
+  app.enableCors();
   await app.listen(3000);
 }
 

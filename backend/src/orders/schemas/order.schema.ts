@@ -17,7 +17,12 @@ export const DishOrderSchema: mSchema<DishOrder> = SchemaFactory.createForClass(
   DishOrder,
 );
 
-@Schema()
+@Schema({
+  id: true,
+  toJSON: {
+    virtuals: true,
+  },
+})
 export class Order {
   @Prop([DishOrder])
   dishes: DishOrder[];

@@ -1,0 +1,29 @@
+<div class="app-container">
+    <mat-toolbar color="primary">
+        <mat-toolbar-row>
+            <button (click)="snav.toggle()" mat-icon-button>
+                <mat-icon>menu</mat-icon>
+            </button>
+            <span flex></span>
+            <h1 class="brand-logo">{{ title }}</h1>
+            <span flex></span>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <mat-sidenav-container [hasBackdrop]="true" class="sidenav-container">
+        <mat-sidenav #snav [mode]="'over'" fixedTopGap="56">
+            <mat-nav-list>
+                <a
+                        (click)="snav.close()" *ngFor="let content of navItems"
+                        [routerLink]="[content.link]"
+                        mat-list-item>
+                    {{ content.name }}
+                </a>
+            </mat-nav-list>
+        </mat-sidenav>
+
+        <mat-sidenav-content>
+            <router-outlet></router-outlet>
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+</div>

@@ -1,0 +1,63 @@
+<mat-toolbar class="table-control-panel">
+    <mat-toolbar-row>
+        <button class="action-button" mat-raised-button color="primary" (click)="openDialog('add')">
+            Add new
+        </button>
+    </mat-toolbar-row>
+</mat-toolbar>
+<mat-divider></mat-divider>
+<table [dataSource]="dataSource" mat-table>
+    <mat-text-column name="name" headerText="Admin name"></mat-text-column>
+    <mat-text-column name="password" headerText="Password"></mat-text-column>
+
+    <ng-container matColumnDef="actions">
+        <th *matHeaderCellDef mat-header-cell></th>
+        <td *matCellDef="let element" mat-cell>
+            <div hflex-layout>
+            <button disableRipple
+                    (click)="openDialog('edit', element)"
+                    [matTooltip]="'Edit'"
+                    class="action-button"
+                    mat-icon-button>
+                <mat-icon>edit</mat-icon>
+            </button>
+            <button disableRipple
+                    (click)="deleteEntity(element)"
+                    [matTooltip]="'Delete'"
+                    class="action-button"
+                    mat-icon-button>
+                <mat-icon>delete</mat-icon>
+            </button>
+            </div>
+        </td>
+    </ng-container>
+
+    <tr *matHeaderRowDef="['name', 'password', 'actions']" mat-header-row></tr>
+    <tr *matRowDef="let row; columns: ['name', 'password', 'actions'];" mat-row></tr>
+</table>
+
+<ng-template #manageEntityDialog>
+    <h1 mat-dialog-title>{{ dialogMode.toUpperCase()[0] + dialogMode.slice(1)}} admin</h1>
+    <form mat-dialog-content [formGroup]="currentModel" flex vflex-layout>
+        <mat-form-field flex>
+            <input
+                    [autocomplete]="'off'" formControlName="name" matInput placeholder="Name"
+                    required>
+        </mat-form-field>
+        <mat-form-field flex>
+            <input
+                    [autocomplete]="'off'" [type]="'password'" formControlName="password" matInput placeholder="Password"
+                    required>
+        </mat-form-field>
+    </form>
+    <div mat-dialog-actions>
+        <button [mat-dialog-close]="false" mat-button>Close</button>
+        <span flex></span>
+        <button
+                [disabled]="!currentModel.status"
+                [mat-dialog-close]="true"
+                mat-button>
+            {{ 'Save' }}
+        </button>
+    </div>
+</ng-template>
